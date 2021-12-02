@@ -2,27 +2,30 @@
 use std::{io::{BufReader, BufRead, self}, fs::File, path::Path, num::ParseIntError};
 
 mod day1;
+mod day2;
 
 fn main() {
-    // let path = Path::new("problems/test");
-    let path = Path::new("problems/problem1");
-    let solver = day1::solve_without_allocating;
+    let solver = day2::solve;
 
-    let res = solver(Path::new(path));
+    let now = std::time::Instant::now();
+    let res = solver();
+    let took = now.elapsed();
 
     if let Err(err) = res {
         println!("Solver failed: {}", err);
     }
+
+    println!("Took {} ms ({} ns)", took.as_millis(), took.as_nanos());
 }
 
-pub fn get_input(file: &Path) -> Result<BufReader<File>, Error> {
+pub fn get_input<P: AsRef<Path>>(file: P) -> Result<BufReader<File>, Error> {
     let f = File::open(file)?;
 
     let reader = BufReader::new(f);
     Ok(reader)
 }
 
-pub fn get_input_lines(file: &Path) -> Result<impl Iterator<Item = String>, Error> {
+pub fn get_input_lines<P: AsRef<Path>>(file: P) -> Result<impl Iterator<Item = String>, Error> {
     Ok(get_input(file)?
         .lines()
         .map(|s| s.expect("Can these IO errors even happen?")))
@@ -34,6 +37,7 @@ pub enum Error {
     IOError(io::Error),
     ParseIntError(ParseIntError),
     NoInput,
+    InvalidInput,
 }
 
 impl std::fmt::Display for Error {

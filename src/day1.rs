@@ -1,7 +1,7 @@
-use std::path::Path;
+const INPUT: &str = "problems/problem1";
 
-pub fn solve(input: &Path) -> Result<(), crate::Error> {
-    let nrs = crate::get_input_lines(input)?
+pub fn solve() -> Result<(), crate::Error> {
+    let nrs = crate::get_input_lines(INPUT)?
         .map(|x| x.parse::<u64>().unwrap())
         .collect::<Vec<_>>();
 
@@ -31,8 +31,8 @@ pub fn solve(input: &Path) -> Result<(), crate::Error> {
     Ok(())
 }
 
-pub fn solve_without_allocating(input: &Path) -> Result<(), crate::Error> {
-    let nrs = crate::get_input_lines(input)?.map(|x| x.parse::<u64>().unwrap());
+pub fn solve_without_allocating() -> Result<(), crate::Error> {
+    let nrs = crate::get_input_lines(INPUT)?.map(|x| x.parse::<u64>().unwrap());
 
     let mut prob1 = 0;
     let mut prev = None;
