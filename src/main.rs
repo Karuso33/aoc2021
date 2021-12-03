@@ -3,9 +3,10 @@ use std::{io::{BufReader, BufRead, self}, fs::File, path::Path, num::ParseIntErr
 
 mod day1;
 mod day2;
+mod day3;
 
 fn main() {
-    let solver = day2::solve;
+    let solver = day3::solve;
 
     let now = std::time::Instant::now();
     let res = solver();
@@ -18,14 +19,14 @@ fn main() {
     println!("Took {} ms ({} ns)", took.as_millis(), took.as_nanos());
 }
 
-pub fn get_input<P: AsRef<Path>>(file: P) -> Result<BufReader<File>, Error> {
+pub fn get_input<P: AsRef<Path>>(file: P) -> Result<BufReader<File>> {
     let f = File::open(file)?;
 
     let reader = BufReader::new(f);
     Ok(reader)
 }
 
-pub fn get_input_lines<P: AsRef<Path>>(file: P) -> Result<impl Iterator<Item = String>, Error> {
+pub fn get_input_lines<P: AsRef<Path>>(file: P) -> Result<impl Iterator<Item = String>> {
     Ok(get_input(file)?
         .lines()
         .map(|s| s.expect("Can these IO errors even happen?")))
@@ -39,6 +40,8 @@ pub enum Error {
     NoInput,
     InvalidInput,
 }
+
+type Result<T> = std::result::Result<T, Error>;
 
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
