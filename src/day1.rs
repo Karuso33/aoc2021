@@ -19,7 +19,7 @@ pub fn solve() -> Result<(), crate::Error> {
     // Part 2
     let mut prob2 = 0;
 
-    for i in 4..nrs.len() {
+    for i in 3..nrs.len() {
         let (a, b, c, d) = (nrs[i - 3], nrs[i - 2], nrs[i - 1], nrs[i]);
         if a + b + c < b + c + d {
             prob2 += 1;
