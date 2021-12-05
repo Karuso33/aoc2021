@@ -4,9 +4,11 @@ use std::{io::{BufReader, BufRead, self}, fs::File, path::Path, num::ParseIntErr
 mod day1;
 mod day2;
 mod day3;
+mod day4;
+mod day5;
 
 fn main() {
-    let solver = day3::solve;
+    let solver = day5::solve;
 
     let now = std::time::Instant::now();
     let res = solver();
