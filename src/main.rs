@@ -7,9 +7,10 @@ mod day3;
 mod day4;
 mod day5;
 mod day6;
+mod day7;
 
 fn main() {
-    let solver = day6::solve;
+    let solver = day7::solve;
 
     let now = std::time::Instant::now();
     let res = solver();
