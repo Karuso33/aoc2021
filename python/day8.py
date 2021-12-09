@@ -1,53 +1,28 @@
 CHARS = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 
 def parse_pattern(w):
-    # represent e.g. the word acf as the tuple
-    # (1,0,1,0,0,1,0)
-    # (a,b,c,d,e,f,g)
-    # this representation will be called binary pattern in what follows
-
-    res = [0] * len(CHARS)
-    for i, c in enumerate(CHARS):
-        if c in w:
-            res[i] = 1
-
-    return tuple(res)
+    # represent e.g. the word acf as a "binary pattern" (1,0,1,0,0,1,0)
+    return tuple([int(c in w) for c in CHARS])
 
 def permute(pi, bin_pattern):
     res = [0] * len(CHARS)
-
     for i, b in enumerate(bin_pattern):
         res[pi[i]] = b
-
     return tuple(res)
 
 def solve():
     DIGITS = [
-        'abcefg', #0
-        'cf', #1
-        'acdeg', #2
-        'acdfg', #3
-        'bcdf', #4
-        'abdfg', #5
-        'abdefg', #6
-        'acf', #7
-        'abcdefg', #8
-        'abcdfg' #9
+        'abcefg', 'cf', 'acdeg', 'acdfg', 'bcdf', 'abdfg', 'abdefg', 'acf', 'abcdefg', 'abcdfg'
     ]
 
     with open("problems/problem8") as f:
         lines = f.readlines()
 
-    observations = []
-    for line in lines:
-        i, o = line.split(' | ')
+    observations = [
+        tuple([parse_pattern(w) for w in x.split()] for x in line.split(' | ')) 
+        for line in lines
+    ]
 
-        i = [parse_pattern(w) for w in i.split()]
-        o = [parse_pattern(w) for w in o.split()]
-
-        observations.append((i, o))
-
-    # This is not the most efficient solution for part 1 but it does not really matter
     prob1 = 0
     target_lengths = {len(DIGITS[1]),len(DIGITS[4]), len(DIGITS[7]), len(DIGITS[8])}
     for _, output in observations:
@@ -77,9 +52,7 @@ def solve():
     possible_positions = {i:set() for i in range(len(CHARS) + 1)}
     for bin_pattern in bin_pattern_to_digit:
         ones = sum(bin_pattern)
-        one_indices = (i for i, x in enumerate(bin_pattern) if x == 1)
-
-        possible_positions[ones].update(one_indices)
+        possible_positions[ones].update(i for i, x in enumerate(bin_pattern) if x == 1)
     
     prob2 = 0
     for inp, outp in observations:
@@ -89,38 +62,31 @@ def solve():
             l = sum(bin_pattern)
 
             for i, b in enumerate(bin_pattern):
-                if not b:
-                    continue
-
-                possible_pi[i] &= possible_positions[l]
+                if b:
+                    possible_pi[i] &= possible_positions[l]
+                    
+        def is_valid_pi(pi):
+            for w in inp:
+                if permute(pi, w) not in bin_pattern_to_digit:
+                    return False
+            return True
 
         # We find this permutation using backtracking
         def make_pi(pi, i, used):
             if i == len(CHARS):
-                if len(used) == len(CHARS):
-                    # pi is an actual permutation! Now verify its what we are looking for.
-                    for w in inp:
-                        if permute(pi, w) not in bin_pattern_to_digit:
-                            return None
-
+                if len(used) == len(CHARS) and is_valid_pi(pi):
                     return pi
-                else:
-                    return None
+            else:
+                for j in possible_pi[i].difference(used):
+                    used.add(j)
+                    pi[i] = j
+                    
+                    res = make_pi(pi, i + 1, used)
+                    if res:
+                        return res
 
-            for j in possible_pi[i]:
-                if j in used:
-                    continue
-
-                used.add(j)
-                pi[i] = j
-                
-                res = make_pi(pi, i + 1, used)
-
-                if res:
-                    return res
-
-                pi[i] = None
-                used.remove(j)
+                    pi[i] = None
+                    used.remove(j)
 
         pi = make_pi({i:None for i in range(len(CHARS))}, 0, set())
 
