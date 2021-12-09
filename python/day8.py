@@ -64,7 +64,7 @@ def solve():
             for i, b in enumerate(bin_pattern):
                 if b:
                     possible_pi[i] &= possible_positions[l]
-                    
+
         def is_valid_pi(pi):
             for w in inp:
                 if permute(pi, w) not in bin_pattern_to_digit:
