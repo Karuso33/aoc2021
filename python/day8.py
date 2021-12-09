@@ -66,10 +66,7 @@ def solve():
                     possible_pi[i] &= possible_positions[l]
 
         def is_valid_pi(pi):
-            for w in inp:
-                if permute(pi, w) not in bin_pattern_to_digit:
-                    return False
-            return True
+            return all(permute(pi, w) in bin_pattern_to_digit for w in inp)
 
         # We find this permutation using backtracking
         def make_pi(pi, i, used):
