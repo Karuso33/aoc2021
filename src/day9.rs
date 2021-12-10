@@ -56,6 +56,7 @@ pub fn solve() -> crate::Result<()> {
             for (nx, ny) in adjacent_locations(x, y, width, height) {
                 if grid[nx as usize + ny as usize * width] <= val {
                     lowpoint = false;
+                    break;
                 }
             }
 

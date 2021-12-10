@@ -8,7 +8,6 @@ pub fn solve() -> crate::Result<()> {
     let mut prob1 = 0;
     let mut autocomplete_scores = Vec::new();
 
-
     let mut opened: Vec<char> = Vec::new();
 
     for line in lines {
@@ -37,7 +36,6 @@ pub fn solve() -> crate::Result<()> {
 
         if let Some(x) = first_illegal_character {
             // Corrupted line
-
             prob1 += match x {
                 ')' => 3,
                 ']' => 57,
