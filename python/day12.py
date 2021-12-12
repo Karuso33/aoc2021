@@ -55,7 +55,6 @@ def solve():
     print("Problem 1:", prob1)
     print("Problem 2:", prob2)
         
-
-
+        
 if __name__ == '__main__':
     solve()
