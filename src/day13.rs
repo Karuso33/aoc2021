@@ -16,7 +16,7 @@ fn fold_x(axis_x: u32, grid: &mut HashSet<Point>, width: &mut u32, height: u32) 
 
         if other_x >= *width {
             continue;
-        } 
+        }
 
         for y in 0..height {
             if grid.contains(&(other_x, y)) {
@@ -26,7 +26,7 @@ fn fold_x(axis_x: u32, grid: &mut HashSet<Point>, width: &mut u32, height: u32) 
     }
 
     *width = axis_x;
-} 
+}
 
 fn fold_y(axis_y: u32, grid: &mut HashSet<Point>, width: u32, height: &mut u32) {
     if axis_y >= *height {
@@ -37,7 +37,7 @@ fn fold_y(axis_y: u32, grid: &mut HashSet<Point>, width: u32, height: &mut u32) 
         let other_y = 2 * axis_y - y;
 
         if other_y >= *height {
-            continue
+            continue;
         }
 
         for x in 0..width {
@@ -95,7 +95,8 @@ pub fn solve() -> crate::Result<()> {
     for line in lines {
         let mut split = line.split('=');
         let s = split.next();
-        let axis = split.next()
+        let axis = split
+            .next()
             .ok_or(crate::Error::InvalidInput)?
             .parse::<u32>()?;
 
@@ -106,13 +107,16 @@ pub fn solve() -> crate::Result<()> {
         }
 
         if prob1.is_none() {
-            let entries = grid.iter().copied().filter(|&(x, y)| x <= width && y <= height)
+            let entries = grid
+                .iter()
+                .copied()
+                .filter(|&(x, y)| x <= width && y <= height)
                 .count();
 
             prob1 = Some(entries);
         }
     }
-    
+
     println!("Problem 1: {}", prob1.unwrap());
 
     println!("Problem 2:");
