@@ -94,7 +94,7 @@ def find_rotation_and_offset(set1: BeaconSet, set2: BeaconSet):
                     return rot, (d1, d2, d3)
 
 def solve():
-    with open("problems/test") as f:
+    with open("problems/problem19") as f:
         lines = f.readlines()
         lines.append('\n')
 
@@ -108,9 +108,7 @@ def solve():
         if line.startswith("---"):
             split = line.split(' ')
             current = int(split[2])
-            continue
-        
-        if not line:
+        elif not line:
             # Line is white space only, we have finished parsing the current scanners section
             scanners[current] = BeaconSet(current_point_set)
             current_point_set = set()
@@ -135,11 +133,9 @@ def solve():
                 if res:
                     # (k1, k2, k3) is the offset of t relative to s
                     rot, offset = res
+
                     scanners[t].rotate_and_translate(rot, offset)
-
                     scanner_offsets[t] = offset
-
-                    print(t, offset)
 
                     break
 
