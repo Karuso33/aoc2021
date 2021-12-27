@@ -1,9 +1,8 @@
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem7";
+const INPUT: &str = include_str!("../problems/problem7");
 
 pub fn solve() -> crate::Result<()> {
-    let line = get_input_lines(INPUT)?
+    let line = INPUT
+        .lines()
         .next()
         .ok_or(crate::Error::NoInput)?;
 

@@ -3,9 +3,7 @@ use std::{
     ops::{Index, IndexMut},
 };
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem25";
+const INPUT: &str = include_str!("../problems/problem25");
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Direction {
@@ -127,7 +125,7 @@ impl Grid {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
+    let lines = INPUT.lines();
 
     let mut spaces = Vec::new();
     let mut width = 0;

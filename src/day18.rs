@@ -1,6 +1,4 @@
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem18";
+const INPUT: &str = include_str!("../problems/problem18");
 
 #[derive(Debug, Clone)]
 struct SnailfishNumber {
@@ -222,7 +220,7 @@ fn parse_number(s: &str) -> Option<(Number, &str)> {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
+    let lines = INPUT.lines();
     let numbers = lines
         .map(|s| parse_snailfish_number(&s).map(|(n, _)| n))
         .collect::<Option<Vec<_>>>()

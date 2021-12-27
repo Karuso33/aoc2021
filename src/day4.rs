@@ -1,8 +1,6 @@
 use std::collections::HashMap;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem4";
+const INPUT: &str = include_str!("../problems/problem4");
 const INF: usize = usize::MAX;
 
 fn determine_winning_move_count(
@@ -56,7 +54,7 @@ fn determine_winning_move_count(
 pub fn solve() -> crate::Result<()> {
     const BOARD_ENTRIES: usize = 5 * 5;
 
-    let mut lines = get_input_lines(INPUT)?.chain(std::iter::once("".into()));
+    let mut lines = INPUT.lines().chain(std::iter::once("".into()));
 
     let moves = lines
         .next()

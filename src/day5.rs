@@ -1,11 +1,9 @@
 use std::collections::HashMap;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem5";
+const INPUT: &str = include_str!("../problems/problem5");
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
+    let lines = INPUT.lines();
 
     let mut hit_count_1: HashMap<(i32, i32), usize> = HashMap::new();
     let mut hit_count_2: HashMap<(i32, i32), usize> = HashMap::new();

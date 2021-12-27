@@ -1,8 +1,6 @@
 use std::collections::HashSet;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem13";
+const INPUT: &str = include_str!("../problems/problem13");
 
 type Point = (u32, u32);
 
@@ -65,7 +63,7 @@ fn print_grid(grid: &HashSet<Point>, width: u32, height: u32) {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let mut lines = get_input_lines(INPUT)?;
+    let mut lines = INPUT.lines();
 
     let mut grid: HashSet<Point> = Default::default();
 

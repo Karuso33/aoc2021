@@ -1,6 +1,4 @@
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem3";
+const INPUT: &str = include_str!("../problems/problem3");
 
 pub fn parse_bitstring(s: &str) -> crate::Result<Vec<u8>> {
     let res = s
@@ -12,8 +10,7 @@ pub fn parse_bitstring(s: &str) -> crate::Result<Vec<u8>> {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
-    let xs = lines
+    let xs = INPUT.lines()
         .map(|line| parse_bitstring(&line))
         .collect::<crate::Result<Vec<_>>>()?;
 

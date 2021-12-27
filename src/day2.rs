@@ -1,12 +1,12 @@
-use crate::{Error, get_input_lines};
+use crate::Error;
 
-const INPUT: &str = "problems/problem2";
+const INPUT: &str = include_str!("../problems/problem2");
 
 #[derive(Debug, Clone, Copy)]
 enum Instruction {
     Forward(i64),
     Down(i64),
-    Up(i64)
+    Up(i64),
 }
 
 impl TryFrom<&str> for Instruction {
@@ -29,8 +29,9 @@ impl TryFrom<&str> for Instruction {
 }
 
 pub fn solve() -> Result<(), crate::Error> {
-    let instructions = get_input_lines(INPUT)?
-        .filter_map(|s| Instruction::try_from(s.as_str()).ok())
+    let instructions = INPUT
+        .lines()
+        .filter_map(|s| Instruction::try_from(s).ok())
         .collect::<Vec<Instruction>>();
 
     // Part 1
@@ -41,7 +42,7 @@ pub fn solve() -> Result<(), crate::Error> {
         match inst {
             Instruction::Down(x) => depth += x,
             Instruction::Up(x) => depth -= x,
-            Instruction::Forward(x) => pos += x
+            Instruction::Forward(x) => pos += x,
         }
     }
 

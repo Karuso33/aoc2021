@@ -1,17 +1,12 @@
 #![allow(dead_code)]
-use std::{io::{BufReader, BufRead, self}, fs::File, path::Path, num::ParseIntError};
+use std::{
+    io::{self},
+    num::ParseIntError,
+};
 
 mod util;
 
 mod day1;
-mod day2;
-mod day3;
-mod day4;
-mod day5;
-mod day6;
-mod day7;
-mod day8;
-mod day9;
 mod day10;
 mod day11;
 mod day12;
@@ -22,12 +17,20 @@ mod day16;
 mod day17;
 mod day18;
 mod day19;
+mod day2;
 mod day20;
 mod day21;
 mod day22;
 mod day23;
 mod day24;
 mod day25;
+mod day3;
+mod day4;
+mod day5;
+mod day6;
+mod day7;
+mod day8;
+mod day9;
 
 fn main() -> crate::Result<()> {
     let solvers = [
@@ -60,10 +63,6 @@ fn main() -> crate::Result<()> {
 
     for (i, solver) in solvers.into_iter().enumerate() {
         let day = i + 1;
-        if day != 1 {
-            continue;
-        }
-
         println!("Day {}", day);
 
         let now = std::time::Instant::now();
@@ -75,19 +74,6 @@ fn main() -> crate::Result<()> {
     }
 
     Ok(())
-}
-
-pub fn get_input<P: AsRef<Path>>(file: P) -> Result<BufReader<File>> {
-    let f = File::open(file)?;
-
-    let reader = BufReader::new(f);
-    Ok(reader)
-}
-
-pub fn get_input_lines<P: AsRef<Path>>(file: P) -> Result<impl Iterator<Item = String>> {
-    Ok(get_input(file)?
-        .lines()
-        .map(|s| s.expect("Can these IO errors even happen?")))
 }
 
 #[non_exhaustive]

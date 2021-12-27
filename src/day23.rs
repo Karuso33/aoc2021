@@ -3,11 +3,10 @@ use std::{collections::VecDeque, fmt::Display};
 use ahash::AHashMap;
 
 use crate::{
-    get_input_lines,
     util::{Edge, Graph},
 };
 
-const INPUT: &str = "problems/problem23";
+const INPUT: &str = include_str!("../problems/problem23");
 const INF: u64 = 1 << 42;
 
 // We encode A as 1, B as 2, C as 3 and D as 4. Further, we index the rooms by the same
@@ -281,7 +280,7 @@ fn find_solution<const N: usize>(b: Board<N>) -> u64 {
 pub fn solve() -> crate::Result<()> {
     let mut rooms = [[0, 0], [0, 0], [0, 0], [0, 0]];
 
-    for (j, line) in get_input_lines(INPUT)?.skip(2).take(2).enumerate() {
+    for (j, line) in INPUT.lines().skip(2).take(2).enumerate() {
         for (i, x) in line
             .trim()
             .split('#')

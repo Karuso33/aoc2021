@@ -1,8 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem8";
+const INPUT: &str = include_str!("../problems/problem8");
 const N: usize = 7;
 const CHARS: [char; N] = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 const DIGIT_PATTERNS: [&str; 10] = [
@@ -35,7 +33,8 @@ pub fn permute(pattern: &Pattern, pi: &Permutation) -> Pattern {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let observations = get_input_lines(INPUT)?
+    let observations = INPUT
+        .lines()
         .map(|line| {
             let mut split = line.split(" | ").map(|part| {
                 part.split_whitespace()

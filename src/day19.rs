@@ -2,11 +2,10 @@ use std::{
     ops::Sub,
 };
 
-use crate::get_input_lines;
 use ahash::{AHashMap, AHashSet};
 use lazy_static::lazy_static;
 
-const INPUT: &str = "problems/problem19";
+const INPUT: &str = include_str!("../problems/problem19");
 
 // This is a re-implementation of the python version.
 // See the Python version for more detailed comments.
@@ -143,7 +142,7 @@ fn find_rotation_and_offset(set1: &BeaconSet, set2: &BeaconSet) -> Option<(Rotat
 }
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?.chain(std::iter::once("".into()));
+    let lines = INPUT.lines().chain(std::iter::once("".into()));
 
     // Assume that the scanners are numbered 0,1,2,3... (without any holes)
     let mut scanners: Vec<BeaconSet> = Default::default();

@@ -1,11 +1,9 @@
 use std::collections::HashMap;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem6";
+const INPUT: &str = include_str!("../problems/problem6");
 
 pub fn solve() -> crate::Result<()> {
-    let fish = get_input_lines(INPUT)?.next()
+    let fish = INPUT.lines().next()
         .ok_or(crate::Error::NoInput)?
         .split(",")
         .map(|x| x.parse::<u8>())

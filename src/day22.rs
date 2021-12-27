@@ -1,8 +1,6 @@
 use std::cmp::{max, min};
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem22";
+const INPUT: &str = include_str!("../problems/problem22");
 
 fn interval_intersection((a, b): (i32, i32), (u, v): (i32, i32)) -> (i32, i32) {
     (max(a, u), min(b, v))
@@ -256,7 +254,7 @@ fn parse_instruction(mut s: &str) -> Option<Instruction> {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let instructions = get_input_lines(INPUT)?
+    let instructions = INPUT.lines()
         .map(|line| parse_instruction(&line))
         .collect::<Option<Vec<Instruction>>>()
         .ok_or(crate::Error::InvalidInput)?;

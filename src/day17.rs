@@ -1,8 +1,6 @@
 use std::collections::HashSet;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem17";
+const INPUT: &str = include_str!("../problems/problem17");
 
 fn parse_range(s: &str) -> Option<(i64, i64)> {
     let mut split = s.split("..");
@@ -14,7 +12,8 @@ fn parse_range(s: &str) -> Option<(i64, i64)> {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let line = get_input_lines(INPUT)?
+    let line = INPUT
+        .lines()
         .next()
         .ok_or(crate::Error::NoInput)?;
 

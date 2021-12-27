@@ -1,9 +1,7 @@
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem10";
+const INPUT: &str = include_str!("../problems/problem10");
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
+    let lines = INPUT.lines();
 
     let mut prob1 = 0;
     let mut autocomplete_scores = Vec::new();

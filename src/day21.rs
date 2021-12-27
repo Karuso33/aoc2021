@@ -1,8 +1,6 @@
 use std::collections::HashMap;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem21";
+const INPUT: &str = include_str!("../problems/problem21");
 
 fn solve_problem1(mut p: [u64; 2]) -> u64 {
     let mut score = [0, 0];
@@ -73,7 +71,7 @@ fn simulate_quantum(
 }
 
 pub fn solve() -> crate::Result<()> {
-    let mut lines = get_input_lines(INPUT)?;
+    let mut lines = INPUT.lines();
 
     let mut p = [0, 0];
     for i in 0..=1 {

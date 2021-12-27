@@ -1,9 +1,8 @@
 use crate::{
-    get_input_lines,
     util::{Edge, Graph},
 };
 
-const INPUT: &str = "problems/problem15";
+const INPUT: &str = include_str!("../problems/problem15");
 
 fn checked_add(a: usize, b: isize) -> Option<usize> {
     if b >= 0 {
@@ -32,7 +31,7 @@ fn in_bounds(
 }
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
+    let lines = INPUT.lines();
 
     let mut grid = Vec::new();
     let mut width = 0;

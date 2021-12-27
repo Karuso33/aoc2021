@@ -1,8 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem12";
+const INPUT: &str = include_str!("../problems/problem12");
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Hash)]
 struct Vertex {
@@ -13,10 +11,9 @@ struct Vertex {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
+    let lines = INPUT.lines();
 
     let mut vertices: HashMap<String, Vertex> = Default::default();
-
     let mut adjacent: HashMap<Vertex, HashSet<Vertex>> = Default::default();
 
     let mut get_vertex = |s: &str| {

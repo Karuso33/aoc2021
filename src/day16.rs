@@ -1,6 +1,4 @@
-use crate::{get_input_lines};
-
-const INPUT: &str = "problems/problem16";
+const INPUT: &str = include_str!("../problems/problem16");
 
 fn hex_digit_to_bits(d: char) -> Option<&'static [u8]> {
     const DIGITS: [[u8; 4]; 16] = [
@@ -207,7 +205,8 @@ fn parse_packet(bits: &[u8]) -> Option<(Packet, &[u8])> {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let line = get_input_lines(INPUT)?
+    let line = INPUT
+        .lines()
         .next()
         .ok_or(crate::Error::NoInput)?;
 

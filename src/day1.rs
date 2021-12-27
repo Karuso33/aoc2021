@@ -1,7 +1,8 @@
-const INPUT: &str = "problems/problem1";
+const INPUT: &str = include_str!("../problems/problem1");
 
 pub fn solve() -> Result<(), crate::Error> {
-    let nrs = crate::get_input_lines(INPUT)?
+    let nrs = INPUT
+        .lines()
         .map(|x| x.parse::<u64>().unwrap())
         .collect::<Vec<_>>();
 
@@ -32,7 +33,7 @@ pub fn solve() -> Result<(), crate::Error> {
 }
 
 pub fn solve_without_allocating() -> Result<(), crate::Error> {
-    let nrs = crate::get_input_lines(INPUT)?.map(|x| x.parse::<u64>().unwrap());
+    let nrs = INPUT.lines().map(|x| x.parse::<u64>().unwrap());
 
     let mut prob1 = 0;
     let mut prev = None;

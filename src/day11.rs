@@ -1,6 +1,4 @@
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem11";
+const INPUT: &str = include_str!("../problems/problem11");
 
 fn checked_add(a: usize, b: isize) -> Option<usize> {
     if b >= 0 {
@@ -11,7 +9,7 @@ fn checked_add(a: usize, b: isize) -> Option<usize> {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
+    let lines = INPUT.lines();
 
     let mut grid = lines
         .map(|line| {

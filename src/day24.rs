@@ -1,8 +1,6 @@
 use ahash::AHashMap;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem24";
+const INPUT: &str = include_str!("../problems/problem24");
 
 type T = i64;
 
@@ -219,7 +217,8 @@ fn reverse_10(mut u: u64) -> u64 {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let instructions = get_input_lines(INPUT)?
+    let instructions = INPUT
+        .lines()
         .map(|line| parse_instruction(&line).map(|(i, _)| i))
         .collect::<Option<Vec<Instruction>>>()
         .ok_or(crate::Error::InvalidInput)?;

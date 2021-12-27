@@ -2,9 +2,7 @@ use std::{cmp::{max, min}, fmt::Display};
 
 use ahash::AHashSet;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem20";
+const INPUT: &str = include_str!("../problems/problem20");
 
 #[derive(Debug, Clone)]
 struct Image {
@@ -118,13 +116,15 @@ impl Image {
     }
 }
 
-fn parse_image<I: IntoIterator<Item = String>>(lines: I) -> Image {
+fn parse_image<S: AsRef<str>, I: IntoIterator<Item = S>>(lines: I) -> Image {
     let mut pixels: AHashSet<(i16, i16)> = Default::default();
 
     let mut max_x = 0;
     let mut max_y = 0;
 
     for (y, line) in lines.into_iter().enumerate() {
+        let line = line.as_ref();
+
         for (x, c) in line.trim().chars().enumerate() {
             if c == '#' {
                 pixels.insert((y as i16, x as i16));
@@ -147,7 +147,7 @@ fn parse_image<I: IntoIterator<Item = String>>(lines: I) -> Image {
 }
 
 pub fn solve() -> crate::Result<()> {
-    let mut lines = get_input_lines(INPUT)?;
+    let mut lines = INPUT.lines();
 
     let algorithm = lines
         .next()

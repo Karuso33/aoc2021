@@ -1,8 +1,6 @@
 use std::collections::HashSet;
 
-use crate::get_input_lines;
-
-const INPUT: &str = "problems/problem9";
+const INPUT: &str = include_str!("../problems/problem9");
 
 pub fn adjacent_locations(
     x: usize,
@@ -24,7 +22,7 @@ pub fn adjacent_locations(
 }
 
 pub fn solve() -> crate::Result<()> {
-    let lines = get_input_lines(INPUT)?;
+    let lines = INPUT.lines();
 
     let mut grid: Vec<u8> = Vec::new();
     let mut width = 0;
