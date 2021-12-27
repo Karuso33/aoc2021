@@ -1,6 +1,8 @@
 #![allow(dead_code)]
 use std::{io::{BufReader, BufRead, self}, fs::File, path::Path, num::ParseIntError};
 
+mod util;
+
 mod day1;
 mod day2;
 mod day3;
@@ -22,10 +24,11 @@ mod day18;
 mod day19;
 mod day21;
 mod day22;
+mod day23;
 mod day24;
 
 fn main() {
-    let solver = day24::solve;
+    let solver = day23::solve;
 
     let now = std::time::Instant::now();
     let res = solver();
