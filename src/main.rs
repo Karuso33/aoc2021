@@ -22,13 +22,14 @@ mod day16;
 mod day17;
 mod day18;
 mod day19;
+mod day20;
 mod day21;
 mod day22;
 mod day23;
 mod day24;
 
 fn main() {
-    let solver = day23::solve;
+    let solver = day20::solve;
 
     let now = std::time::Instant::now();
     let res = solver();
