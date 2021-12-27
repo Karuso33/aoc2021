@@ -141,13 +141,23 @@ impl<const N: usize> Graph<Board<N>> for StateGraph {
                     continue;
                 }
 
+                let distances = board.distances(from);
+
                 for to in [0, 1, 3, 5, 7, 9, 10] {
                     let to = Position::Hallway(to);
-                    if let Some(dist) = board.distance(from, to) {
-                        out.push(Edge {
-                            vertex: board.make_move_unchecked(from, to),
-                            cost: dist * cost(x),
-                        })
+                    if let Some(dist) = distances.get(&to) {
+                        let new_board = board.make_move_unchecked(from, to);
+
+                        // Make sure the "interior" of the hallway stays sorted,
+                        // otherwise two amphipods will just block each other there forever
+                        // (since they have to get past each other to move into their rooms)
+                        let (a, b, c) = (new_board.hallway[3], new_board.hallway[5], new_board.hallway[7]);
+                        if (a == 0 || b == 0 || a < b) && (b == 0 || c == 0 || b < c) {
+                            out.push(Edge {
+                                vertex: new_board,
+                                cost: dist * cost(x),
+                            })
+                        }
                     }
                 }
             }
