@@ -2,7 +2,7 @@ use ahash::AHashMap;
 
 const INPUT: &str = include_str!("../problems/problem24");
 
-type T = i64;
+type T = i32;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum Instruction {
@@ -164,13 +164,18 @@ fn run<'a>(instructions: &'a [Instruction], mem: &mut [T; 4], input: T) -> &'a [
 
 fn find_solution(
     program: &[Instruction],
-    depth: usize,
+    depth: u8,
     z: T,
-    cache: &mut AHashMap<(usize, T), Option<u64>>,
+    cache: &mut AHashMap<(u8, T), Option<u64>>,
     biggest: bool,
 ) -> Option<u64> {
     if program.len() == 0 {
         return if z == 0 { Some(0) } else { None };
+    }
+
+    // (*)
+    if z as u64 > 27u64.pow(14 - depth as u32) {
+        return None;
     }
 
     if let Some(&ret) = cache.get(&(depth, z)) {
@@ -223,14 +228,28 @@ pub fn solve() -> crate::Result<()> {
         .collect::<Option<Vec<Instruction>>>()
         .ok_or(crate::Error::InvalidInput)?;
 
+    // This solution tries to be as general as possible, never the less, we assume a few things
+    // about the input:
+    // - w, x, y are just used as temporaries and do not matter across different inp instructions
+    // - there are 14 inp instructions
+    // Finally, there is an optimization (*), which we could leave out and the program
+    // would still work - just much slower - that assumes
+    // - in each block (by which we mean a section starting with inp and otherwise
+    // having no other inp's) the variable z can only shrink by a factor of 27  i.e.
+    // if z0 is before the block is run, and z1 is afterwards, we assume that 27 * z0 >= z1
+
     println!(
         "Problem 1: {:?}",
-        find_solution(&instructions, 0, 0, &mut Default::default(), true).map(reverse_10)
+        find_solution(&instructions, 0, 0, &mut Default::default(), true)
+            .map(reverse_10)
+            .unwrap()
     );
 
     println!(
         "Problem 2: {:?}",
-        find_solution(&instructions, 0, 0, &mut Default::default(), false).map(reverse_10)
+        find_solution(&instructions, 0, 0, &mut Default::default(), false)
+            .map(reverse_10)
+            .unwrap()
     );
 
     Ok(())
